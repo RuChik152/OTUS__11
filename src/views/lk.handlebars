@@ -1,0 +1,66 @@
+<h1>Личный кабинет</h1>
+
+<div>
+    <p>Создание курса</p>
+    <form id="create_course_form">
+        <input id="name_course" type="text" placeholder="Название группы">
+        <input id="desc_course" type="text" placeholder="Описание группы">
+        <button id="create_btn">send</button>
+    </form>
+
+    <p>Список курсов</p>
+    {{#each courses}}
+        <div id="course_list">
+            <a class="course__item" href="/course/{{this._id}}">{{this.title}}</a>
+        </div>
+    {{/each}}
+    <hr>
+
+
+</div>
+<script>
+    const token = localStorage.getItem('token')
+    if(!token) location.href = `{{host}}/auth/signin`
+</script>
+
+<script>
+
+    const nameCourse = document.querySelector('#name_course')
+    const descCourse = document.querySelector('#desc_course')
+    const createCourseForm = document.querySelector('#create_course_form')
+    const createBtn = document.querySelector('#create_btn')
+
+    const listCourse = document.querySelector('#course_list')
+    const courseItem = document.getElementsByClassName('course__item')
+
+    createCourseForm.addEventListener('change', changeInputData)
+    createBtn.addEventListener('click', createCourse)
+
+
+    console.log(courseItem)
+    console.log(listCourse)
+    function changeInputData(e) {
+        e.preventDefault()
+    }
+
+    function createCourse(e) {
+        e.preventDefault()
+        axios({
+            method: 'POST',
+            url: `{{host}}/api/course`,
+            data: {
+                title: nameCourse.value,
+                desc: descCourse.value
+            }
+        }).then(data => {
+            console.log(data.data.data)
+            const req = data.data.data;
+            const div = document.createElement('a')
+            div.className = 'course__item'
+            div.href = `/course/${req._id}`
+            div.innerText = `${req.title}`
+            listCourse.appendChild(div);
+        }).catch(err => {console.log(err)})
+    }
+
+</script>

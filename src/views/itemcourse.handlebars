@@ -1,0 +1,14 @@
+<h1>{{title}}</h1>
+<strong>Описание курса</strong>
+<p>{{desc}}</p>
+{{#each lessons}}
+    <div>
+        <p>{{this.name}}</p>
+        <p>{{this.desc}}</p>
+        <a href="/course/{{course_id}}/lesson/{{this._id}}">Страница Урока</a>
+    </div>
+{{/each}}
+<script>
+    const token = localStorage.getItem('token')
+    if(!token) location.href = `{{host}}/auth/signin`
+</script>

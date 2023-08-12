@@ -1,0 +1,8 @@
+<h1>Lesson Page</h1>
+<h3>Name: {{name}}</h3>
+<h4>Описание</h4>
+<p>{{desc}}</p>
+<script>
+    const token = localStorage.getItem('token')
+    if(!token) location.href = `{{host}}/auth/signin`
+</script>

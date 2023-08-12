@@ -1,0 +1,16 @@
+{{> header}}
+
+<h1>Example App: Home</h1>
+
+{{#each courses}}
+    <div>
+        <p>{{this.title}}</p>
+        <p>{{this.desc}}</p>
+        <a href="#">{{this.title}}</a>
+    </div>
+{{/each}}
+
+<script>
+    const token = localStorage.getItem('token')
+    if(!token) location.href = `{{host}}/auth`
+</script>
