@@ -1,0 +1,63 @@
+<form id="auth_form">
+    <label>
+        <input id="email_input" type="email" placeholder="Email">
+    </label>
+    <label>
+        <input id="pass_input" type="password" placeholder="password">
+    </label>
+    <label for="chk">
+        <input id="chk" class="chk" type="checkbox">
+    </label>
+    <button id="btn" class="btn" disabled="disabled">
+        send
+    </button>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    const token = localStorage.getItem('token')
+    if(!token) location.href = `{{host}}/auth/signin`
+</script>
+<script>
+
+    const btn = document.querySelector('#btn')
+    const chk_btn = document.querySelector('#chk')
+    const userEmail = document.querySelector('#email_input')
+    const userPass = document.querySelector('#pass_input')
+    const formAuth = document.querySelector('#auth_form')
+
+    console.log('DATA', userEmail)
+
+    formAuth.addEventListener('change', changeInput)
+    btn.addEventListener('click', sendData);
+    chk_btn.addEventListener('change', chkData)
+
+    function sendData (e) {
+        e.preventDefault()
+        axios({
+            method: 'POST',
+            url: `{{host}}/api/auth/signup`,
+            data: {
+                email: userEmail.value,
+                pass: userPass.value,
+            }
+        }).then(data => {console.log(data)}).catch(err => {console.log(err)})
+    }
+
+    function chkData (e) {
+        e.preventDefault()
+        console.log(btn.getAttribute('disabled') === 'disabled')
+        console.log(chk_btn.getAttribute('checked') === 'checked')
+        if (btn.hasAttribute('disabled') && chk_btn.hasAttribute('checked') === false ) {
+            btn.removeAttribute('disabled');
+            chk_btn.setAttribute('checked', 'checked')
+        } else  {
+            btn.setAttribute('disabled', 'disabled');
+            chk_btn.removeAttribute('checked');
+        }
+    }
+
+    function changeInput(e) {
+        e.preventDefault()
+    }
+</script>
