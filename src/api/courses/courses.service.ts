@@ -1,13 +1,9 @@
 import {Course, CourseModel} from "./entities/course.entities";
-import mongoose, {Schema, Types } from "mongoose";
-
-
-
 
 
 export async function getCourse() {
     try {
-        return CourseModel.find().populate('lessons').lean().exec();
+        return await CourseModel.find().populate('lessons').lean().exec();
     } catch (err) {
         throw err;
     }
@@ -15,7 +11,7 @@ export async function getCourse() {
 
 export async function createCourse(data: Course) {
     try {
-        return CourseModel.create(data)
+        return await CourseModel.create(data)
     } catch (err) {
         throw err;
     }

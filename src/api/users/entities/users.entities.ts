@@ -1,17 +1,18 @@
 import mongoose from "mongoose";
+import {Course} from "../../courses/entities/course.entities";
 const {Schema} = mongoose;
 
 export interface User {
-    email?: string,
-    pass?: string,
-    firstName?: string,
-    lastName?: string,
-    birthday?: string,
-    years?: number,
-    courses?: any[]
+    email: string,
+    pass: string,
+    firstName: string,
+    lastName: string,
+    birthday: string,
+    years: number,
+    courses: Partial<Course[]>
 }
 
-export const UserSchema = new Schema<User>({
+export const UserSchema = new Schema<Partial<User>>({
     email: {
         type: String,
         required: true,

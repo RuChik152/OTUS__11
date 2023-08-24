@@ -53,10 +53,9 @@ app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set('views', path.resolve(__dirname, './views'));
 
-
-app.use('/', ViewerController)
-app.use(Middleware);
 app.use('/api', ApiController);
+app.use(Middleware);
+app.use('/', ViewerController)
 
 
 

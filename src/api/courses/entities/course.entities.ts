@@ -2,12 +2,12 @@ import mongoose, {SchemaType} from "mongoose";
 const {Schema} = mongoose
 
 export interface Course {
-    title?: string,
-    desc?: string,
-    lessons?: []
+    title: string,
+    desc: string,
+    lessons: []
 }
 
-export const CourseSchema = new Schema<Course>({
+export const CourseSchema = new Schema<Partial<Course>>({
     title: {
         type: String,
         required: true
